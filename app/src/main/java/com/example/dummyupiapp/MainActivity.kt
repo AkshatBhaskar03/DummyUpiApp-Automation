@@ -3,6 +3,7 @@ package com.example.dummyupiapp
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Arrangement
@@ -46,13 +47,18 @@ class MainActivity : ComponentActivity() {
                         horizontalAlignment = androidx.compose.ui.Alignment.CenterHorizontally,
                     )
                     {
-                        SimpleButton("Success", onClick = { Log.d("Logger","1") })
-                        SimpleButton("Failure", onClick = { Log.d("Logger","2") })
-                        SimpleButton("Throw Random Error", onClick = { Log.d("Logger","3") })
+                        var buttonList = listOf<String>("Sucess","Failure","Pending");
+                        buttonList.forEachIndexed{
+                            index: Int, s: String ->  SimpleButton(s, onClick = { handleButtonClick(s) })
+                        }
                     }
                 }
             }
         }
+    }
+
+    private fun handleButtonClick(buttonType: String) {
+        Toast.makeText(this, "Button $buttonType clicked", Toast.LENGTH_SHORT).show()
     }
 }
 
